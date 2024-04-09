@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapper.OperationsMapper">
+
+    <resultMap id="BaseResultMap" type="com.blog.domain.Operations">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="username" column="username" jdbcType="INTEGER"/>
+        <result property="recordMethod" column="record_method" jdbcType="OTHER"/>
+        <result property="record" column="record" jdbcType="VARCHAR"/>
+        <result property="timeConsuming" column="time_consuming" jdbcType="VARCHAR"/>
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,username,record_method,
+        record,time_consuming,created_at,
+        updated_at
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from operations
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from operations
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.blog.domain.Operations"
+            useGeneratedKeys="true">
+        insert into operations
+        ( id, username, record_method
+        , record, time_consuming, created_at
+        , updated_at)
+        values ( #{id,jdbcType=BIGINT}, #{username,jdbcType=INTEGER}, #{recordMethod,jdbcType=OTHER}
+               , #{record,jdbcType=VARCHAR}, #{timeConsuming,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}
+               , #{updatedAt,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.blog.domain.Operations"
+            useGeneratedKeys="true">
+        insert into operations
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="username != null">username,</if>
+            <if test="recordMethod != null">record_method,</if>
+            <if test="record != null">record,</if>
+            <if test="timeConsuming != null">time_consuming,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id,jdbcType=BIGINT},</if>
+            <if test="username != null">#{username,jdbcType=INTEGER},</if>
+            <if test="recordMethod != null">#{recordMethod,jdbcType=OTHER},</if>
+            <if test="record != null">#{record,jdbcType=VARCHAR},</if>
+            <if test="timeConsuming != null">#{timeConsuming,jdbcType=VARCHAR},</if>
+            <if test="createdAt != null">#{createdAt,jdbcType=TIMESTAMP},</if>
+            <if test="updatedAt != null">#{updatedAt,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.blog.domain.Operations">
+        update operations
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=INTEGER},
+            </if>
+            <if test="recordMethod != null">
+                record_method = #{recordMethod,jdbcType=OTHER},
+            </if>
+            <if test="record != null">
+                record = #{record,jdbcType=VARCHAR},
+            </if>
+            <if test="timeConsuming != null">
+                time_consuming = #{timeConsuming,jdbcType=VARCHAR},
+            </if>
+            <if test="createdAt != null">
+                created_at = #{createdAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedAt != null">
+                updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.blog.domain.Operations">
+        update operations
+        set username       = #{username,jdbcType=INTEGER},
+            record_method  = #{recordMethod,jdbcType=OTHER},
+            record         = #{record,jdbcType=VARCHAR},
+            time_consuming = #{timeConsuming,jdbcType=VARCHAR},
+            created_at     = #{createdAt,jdbcType=TIMESTAMP},
+            updated_at     = #{updatedAt,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

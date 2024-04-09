@@ -1,0 +1,30 @@
+server:
+  port: 9090
+  servlet:
+    context-path: /api/v1
+spring:
+  banner:
+    location: fay.txt
+  datasource:
+    url: jdbc:mysql://111.230.72.130:3306/cai_cai_blog?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: cai_cai_blog
+    password: Firstsnow&pellucid
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  data:
+    redis:
+      host: localhost
+      port: 6379
+mybatis:
+  # 配置xml的mapper的映射
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  configuration:
+    # mybatis输出到控制台
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 驼峰命名的开关 td_user  --> tdUser
+    map-underscore-to-camel-case: true
+cai:
+  url: http://localhost:9090/api/v1/images/
